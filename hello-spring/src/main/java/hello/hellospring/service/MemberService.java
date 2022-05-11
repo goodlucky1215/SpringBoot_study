@@ -14,7 +14,7 @@ public class MemberService {
     /**
      * 회원가입
      */
-    private Long join(Member member){
+    public Long join(Member member){
         //같은 이름이 있는 회원은 안됨.
         validateDuplicateMember(member);
         memberRepository.save(member);
