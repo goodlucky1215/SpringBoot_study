@@ -1,28 +1,26 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@SpringBootTest
+@Transactional
 class MemberServiceIntegrationTest {
 
+    @Autowired
     MemberService memberService;
-    MemoryMemberRepository memoryMemberRepository;
-
-    @BeforeEach
-    public  void beforeEach(){
-        memoryMemberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memoryMemberRepository);
-    }
-    @AfterEach
-    public void efterEach(){
-        memoryMemberRepository.clearStore();
-    }
 
     @Test //태스트는 한글말로 적어서 빠르게 알아볼수 있도록 해도 ok
     void 회원가입() {
@@ -49,6 +47,7 @@ class MemberServiceIntegrationTest {
         //when
         memberService.join(member1);
 
+        //then
         //방법2
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
         assertThat(e.getMessage()).isEqualTo("이미 회원이 존재합니다.");
@@ -62,14 +61,12 @@ class MemberServiceIntegrationTest {
         }
         */
 
-        //then
     }
 
     @Test
-    void findMembers() {
-    }
+    public void 아이디_존재예외(){
+        Optional<Member> m = memberService.findOne(111L);
 
-    @Test
-    void findOne() {
+        assertThat(m).isEqualTo(Optional.empty());
     }
 }
