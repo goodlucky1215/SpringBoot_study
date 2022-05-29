@@ -15,8 +15,7 @@ import java.util.Enumeration;
 @WebServlet(name = "RequestParamServlet", urlPatterns = "/request-param")
 public class RequestParamServlet extends HttpServlet {
 
-    @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         System.out.println("=============================한꺼번에 조회===============================");
         Enumeration<String> paramNames = request.getParameterNames();
