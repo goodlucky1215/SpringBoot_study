@@ -7,25 +7,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 
 @SpringBootTest
 class MemberRepositoryTest {
 
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepository1 memberRepository;
 
     @Test
     @Transactional //롤백해서 값이 저장안되게 함
     @Rollback(false) //값이 저장되도록함
     public void testMember() throws Exception{
         //given
-        Member member = new Member();
+        Member1 member = new Member1();
         member.setUsername("memberA");
 
         //when
         Long saveId = memberRepository.save(member);
-        Member findMember = memberRepository.find(saveId);
+        Member1 findMember = memberRepository.find(saveId);
 
         //then
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
