@@ -19,7 +19,7 @@ public class Address {
     //이런 파라미터가 들어간 생성자를 만들었다면, 따로 기본 생성자를 만들어
     //줘야한다.
     //그런데 public으로하면 호출이 많이 될 수 있으므로, protected로 해준다.
-    protected Address{
+    protected Address(){
 
     }
 
