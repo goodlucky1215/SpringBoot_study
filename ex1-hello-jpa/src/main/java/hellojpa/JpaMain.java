@@ -9,10 +9,10 @@ public class JpaMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 
-        EntityManager entityManager = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
 
-        entityManager.close();
+        //em.close();
 
-        emf.close();
+        //emf.close();
     }
 }
