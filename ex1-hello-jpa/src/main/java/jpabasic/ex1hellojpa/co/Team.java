@@ -1,4 +1,4 @@
-package jpabasic;
+package jpabasic.ex1hellojpa.co;
 
 import javax.persistence.*;
 import java.util.List;

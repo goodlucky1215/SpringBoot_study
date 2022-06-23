@@ -1,4 +1,4 @@
-package jpabasic;
+package jpabasic.ex1hellojpa.co;
 
 import javax.persistence.*;
 
@@ -6,25 +6,26 @@ import javax.persistence.*;
 public class Member {
 
     @Id @GeneratedValue
+    @Column(name="member_id")
     private Long id;
 
+    @Column
     private String name;
 
-    private String username;
-
+    @Column
     private int age;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "TEAM_ID")
+    //private Team team;
 
-    @Enumerated(EnumType.STRING)
-    private  MemberType type;
+    //@Enumerated(EnumType.STRING)
+    //private  MemberType type;
 
-    public void changeTeam(Team team){
-        this.team = team;
-        team.getMembers().add(this);
-    }
+    //public void changeTeam(Team team){
+     //   this.team = team;
+    //    team.getMembers().add(this);
+    //}
 
 
 
@@ -44,13 +45,13 @@ public class Member {
         this.name = name;
     }
 
-    public String getUsername() {
-        return username;
-    }
+    //public String getUsername() {
+    //    return username;
+    //}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    //public void setUsername(String username) {
+     //   this.username = username;
+   // }
 
     public int getAge() {
         return age;
