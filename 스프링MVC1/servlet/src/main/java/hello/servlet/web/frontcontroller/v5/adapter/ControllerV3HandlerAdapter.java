@@ -8,6 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
 
@@ -18,7 +21,20 @@ public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
 
     @Override
     public ModelView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
+        ControllerV3 controller = (ControllerV3) handler;
 
-        return null;
+        Map<String,String>paramMap = createParamMap(request);
+        ModelView mv = controller.process(paramMap);
+        return mv;
+    }
+
+    private Map<String, String> createParamMap(HttpServletRequest request) {
+        Map<String, String> paramMap = new HashMap<>();
+        Enumeration<String> paramNames = request.getParameterNames();
+        while(paramNames.hasMoreElements()){
+            String paramName = paramNames.nextElement();
+            paramMap.put(paramName,request.getParameter(paramName));
+        }
+        return paramMap;
     }
 }
