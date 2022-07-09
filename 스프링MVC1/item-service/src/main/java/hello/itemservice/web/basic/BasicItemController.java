@@ -52,7 +52,7 @@ public class BasicItemController {
         return "basic/item";
     }
 
-    @PostMapping("/add")
+    //@PostMapping("/add")
     public String addItemV2(@ModelAttribute("item") Item item,
                        Model model){
         itemRepository.save(item);
@@ -60,6 +60,26 @@ public class BasicItemController {
         model.addAttribute("item",item);
         return "basic/item";
     }
+
+    //@PostMapping("/add")
+    public String addItemV3(@ModelAttribute("item") Item item){
+        itemRepository.save(item);
+        return "basic/item";
+    }
+
+    //@PostMapping("/add")
+    public String addItemV4(@ModelAttribute Item item){
+        itemRepository.save(item);
+        return "basic/item";
+    }
+
+
+    @PostMapping("/add")
+    public String addItemV5(Item item){
+        itemRepository.save(item);
+        return "basic/item";
+    }
+
 
     /*
     테스트용 데이터 추가
