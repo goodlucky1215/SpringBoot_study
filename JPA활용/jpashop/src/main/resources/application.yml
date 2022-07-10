@@ -15,8 +15,8 @@ spring:
 
 
   jpa:
-    hibernate:
-      ddl-auto: create #테이블 자동 생성
+    #hibernate:
+    #  ddl-auto: create #테이블 자동 생성
     properties:
       hibernate:
         show_sql: true #sys.out으로 sql이 찍힌다.(테스트용으로만 사용하기)

@@ -17,7 +17,8 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     public Book findOne(Long itemId) {
-        return itemRepository.findOne(itemId);
+        Book book = (Book) itemRepository.findOne(itemId);
+        return book;
     }
 
     @Transactional
