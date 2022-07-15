@@ -62,11 +62,13 @@ public class ItemController {
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImg(@PathVariable String filename) throws MalformedURLException {
+        log.info("==========downloadImg==============");
         return new UrlResource("file:"+fileStore.getFullPath(filename));
     }
 
     @GetMapping("/attach/{itemId}")
     public ResponseEntity<Resource> downloadAttach(@PathVariable Long itemId) throws MalformedURLException {
+        log.info("==========downloadAttach==============");
         Item item = itemRepository.findById(itemId);
         String storeFileName = item.getAttachFile().getStoreFileName();
         String uploadFileName = item.getAttachFile().getUploadFileName();
@@ -76,8 +78,8 @@ public class ItemController {
         log.info("uploadFileName={}", uploadFileName);
 
 
-        //이걸 해야 다운로드됨 안그러면 그냥 화면에 읽기로 출력이 됨
         String encodedUploadFile = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8); //인코딩안하면 파일 깨질수있다.
+        //이걸 해야 다운로드됨 안그러면 그냥 화면에 읽기로 출력이 됨
         String contentDisposition = "attachment; filename=\""+encodedUploadFile+"\"";
 
 
