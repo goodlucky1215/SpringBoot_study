@@ -139,9 +139,9 @@ public class ValidationItemControllerV2 {
         //검증 로직
         if(!StringUtils.hasText(item.getItemName())){
             bindingResult.addError(new FieldError("item","itemName",item.getItemName(),false,new String[]{"required.item.itemName"},null,null));
-            // new String[]{"require","defalut.error"}  => "require"가 없으면 "defalut.error" 다음 순위로 찍히게 됨
+            // new String[]{"require","default.error"}  => "require"가 없으면 "defalut.error" 다음 순위로 찍히게 됨
             //  bindingResult.addError(new FieldError("item","itemName",item.getItemName(),false,new String[]{"require","defalut.error"},null,"상품 이름은 필수입니다."));
-            // new String[]{"require","defalut"}  => 둘 다 없으면, 마지막에 적어둔 "상품 이름은 필수입니다." 찍힘 이 부분도 null이면 에러가 난다.
+            // new String[]{"require","default"}  => 둘 다 없으면, 마지막에 적어둔 "상품 이름은 필수입니다." 찍힘 이 부분도 null이면 에러가 난다.
             //  bindingResult.addError(new FieldError("item","itemName",item.getItemName(),false,new String[]{"require","defaluㅅ"},null,"상품 이름은 필수입니다."));
         }
         if(item.getPrice()==null || item.getPrice()<1000||item.getPrice()>1000000){
