@@ -1,0 +1,30 @@
+spring:
+  h2:
+    console:
+      enabled: true #콘솔을 사용하겠다.
+      settings:
+        web-allow-others: true #웹브라우저에서 검색을 허락하겠다.
+      path: /h2-console #웹브라우저에서 접속하고자하는 h2의 주소
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/db2 #값이 저장되는 db정
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+
