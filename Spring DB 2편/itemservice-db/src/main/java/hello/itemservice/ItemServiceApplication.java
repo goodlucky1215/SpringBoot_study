@@ -12,19 +12,20 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 
 
-@Import(MemoryConfig.class)
-@SpringBootApplication//(scanBasePackages = "hello.itemservice.web")
+//@Import(MemoryConfig.class)
+@Import(V2Config.class)
+@SpringBootApplication(scanBasePackages = "hello.itemservice.web")
 public class ItemServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ItemServiceApplication.class, args);
 	}
 
-	/*
+
 	@Bean
 	@Profile("local")
 	public TestDataInit testDataInit(ItemRepository itemRepository) {
 		return new TestDataInit(itemRepository);
-	}*/
+	}
 
 }
