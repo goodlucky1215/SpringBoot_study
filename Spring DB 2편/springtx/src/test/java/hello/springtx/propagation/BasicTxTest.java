@@ -91,7 +91,7 @@ public class BasicTxTest {
 
         log.info("내부 트랜잭션 시작");
         TransactionStatus inner = txManager.getTransaction(new DefaultTransactionAttribute());
-        log.info("outer.isNewTransaction()={}", inner.isNewTransaction());
+        log.info("inner.isNewTransaction()={}", inner.isNewTransaction());
         log.info("내부 트랜잭션 커밋 ");
         txManager.commit(inner);
 
@@ -107,7 +107,7 @@ public class BasicTxTest {
 
         log.info("내부 트랜잭션 시작");
         TransactionStatus inner = txManager.getTransaction(new DefaultTransactionAttribute());
-        log.info("outer.isNewTransaction()={}", inner.isNewTransaction());
+        log.info("inner.isNewTransaction()={}", inner.isNewTransaction());
         log.info("내부 트랜잭션 커밋 ");
         txManager.commit(inner);
 
@@ -123,7 +123,7 @@ public class BasicTxTest {
 
         log.info("내부 트랜잭션 시작");
         TransactionStatus inner = txManager.getTransaction(new DefaultTransactionAttribute());
-        log.info("outer.isNewTransaction()={}", inner.isNewTransaction());
+        log.info("inner.isNewTransaction()={}", inner.isNewTransaction());
         log.info("내부 트랜잭션 롤백 ");
         txManager.rollback(inner);
 
@@ -141,8 +141,9 @@ public class BasicTxTest {
         DefaultTransactionAttribute defaultTransactionAttribute = new DefaultTransactionAttribute();
         defaultTransactionAttribute.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
         TransactionStatus inner = txManager.getTransaction(defaultTransactionAttribute);
-        log.info("outer.isNewTransaction()={}", inner.isNewTransaction());
-        log.info("내부 트랜잭션 롤백 ");
+        log.info("inner.isNewTransaction()={}", inner.isNewTransaction());
+        log.info("inner.isNewTransaction()={}", inner.getClass());
+        log.info("내부 트랜잭션 롤백");
         txManager.rollback(inner);
 
         log.info("외부 트랜잭션 커밋 ");
