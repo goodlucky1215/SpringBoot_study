@@ -1,0 +1,124 @@
+#wrap{
+  overflow: hidden;
+  width: 1340px;
+  margin: 0 auto;
+}
+
+#header{
+  position: relative;
+  height: 80px;
+}
+#menu_cart{
+  position: absolute;
+  top: 12px;
+  right: 27px;
+}
+
+#wrap_itemList_title{
+  margin: 0 auto;
+  width: 140px; height: 60px; 
+}
+
+/* 아이템 영역 */
+ul{
+  list-style: none;
+}
+
+.item_li{
+  margin-right: 40px;
+  margin-bottom: 40px;
+  width: 280px;
+  height: 494px;
+  display: inline-table;
+}
+
+/* 이미지 부분까지 */
+
+.item_group_ssgdelivery{
+  background-color: yellowgreen;
+}
+.item_group_dawndelivery{
+  background-color: skyblue;
+}
+.item_group_delivery{
+  background-color: yellow;
+}
+
+.item_detail_img{
+  width: 280px;
+  height: 280px;
+}
+
+
+/* 상품 가격까지 */
+.item_information_center > div,
+.item_information_bottom > div {
+  padding-top: 10px;
+}
+
+
+.wrap_item_price_quantity{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.item_price{
+  font-size: 22px;
+}
+
+.wrap_item_quantity{
+  color: gray;
+}
+.quantity_less{
+  color: red;
+}
+
+button:hover {
+  cursor: pointer;
+}
+/* 장바구니 버튼까지 */
+.item_quantity_zero{
+  text-align: center;
+  font-size: 30px;
+  padding: 0;
+  transform: translateY(50%);
+}
+
+.wrap_item_quantity_button{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+}
+
+.wrap_item_quantity_buy_price{
+  text-align: right;
+}
+
+.item_quantity_buy_price{
+  font-size: 26px;
+}
+
+.wrap_item_cart_button{
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.item_quantity_buy{
+  width: 80px;
+  height: 18px;
+}
+
+.item_cart_button,
+.item_pay_button{
+  width: 40%;
+  height: 100%;
+  border-radius: 5px;
+  border: 0;
+  background-color: rgb(81, 177, 250);
+  font-weight: bolder;
+  color: white
+}

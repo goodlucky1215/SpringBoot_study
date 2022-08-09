@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script th:inline="javascript">
+        const item_price_hidden = new Map();//카트에 담은 가격
+        const item_quantity_hidden = new Map();//카트에 담은 수량
+        /*[# th:each="cart : ${ssgdelivery}"]*/
+        item_price_hidden.set([[${cart.item.id}]], [[${cart.item.price * cart.quantity}]]);
+        item_quantity_hidden.set([[${cart.item.id}]] , [[${cart.quantity}]]);
+        /*[/]*/
+        /*[# th:each="cart : ${dawndelivery}"]*/
+        item_price_hidden.set([[${cart.item.id}]], [[${cart.item.price * cart.quantity}]]);
+        item_quantity_hidden.set([[${cart.item.id}]] , [[${cart.quantity}]]);
+        /*[/]*/
+        /*[# th:each="cart : ${delivery}"]*/
+        item_price_hidden.set([[${cart.item.id}]], [[${cart.item.price * cart.quantity}]]);
+        item_quantity_hidden.set([[${cart.item.id}]] , [[${cart.quantity}]]);
+        /*[/]*/
+    </script>
+    <script src="/js/cartHome.js"></script>
+    <script src="/js/payHome.js"></script>
+    <link rel="stylesheet" href="/css/cartHome.css">
+    <link rel="stylesheet" href="/css/payHome.css">
+</head>
+<body>
+<div id="wrap">
+
+    <div id="header">
+        <a id="menu_home" href="/">상품목록🏡</a>
+    </div>
+
+    <div id="wrap_cart">
+        <div id="wrap_cart_list">
+            <div id="wrap_cart_button">
+                <button onclick="selectAll('')">전체 선택</button>
+                <button onclick="cartItemDeleteCheckBox()">선택제품 삭제</button>
+            </div>
+
+            <div id="wrap_cart_group_ssgdelivery" th:if="${ssgdelivery.size()}>0">
+                <div id="cart_group_ssgdelivery">
+                    <div>
+                        쓱배송
+                    </div>
+                    <button onclick="selectAll('_ssgdelivery')">쓱배송 전체 선택</button>
+                </div>
+                <div>
+                    <ul>
+                        <li th:each="cart : ${ssgdelivery}">
+                            <div class="wrap_cart_one_item" th:if="${cart.item.quantity}>0">
+                                <div class="wrap_cart_one_item_checkbox">
+                                    <input type="checkbox" class="checkbox_item checkbox_item_ssgdelivery" th:id="${cart.item.id}" onclick="checkboxClick()"/>
+                                </div>
+                                <div class="wrap_cart_one_item_img">
+                                    <img class="item_img" th:src="@{/img/}+${cart.item.id}+@{.jpg}">
+                                </div>
+                                <div class="wrap_cart_one_item_name" th:text="${cart.item.name}">
+                                    상품이름
+                                </div>
+                                <div class="wrap_cart_one_item_button">
+                                    <div class="wrap_cart_item_quantity_button_plus_minus">
+                                        <button class="minus_button" th:onclick="cartItemQuantityChange('minus',[[${cart.item.id}]])">➖</button>
+                                        <input type="text" th:onchange="cartItemQuantityValueChange([[${cart.item.id}]])"  class="cart_item_quantity_buy" th:id="@{cart_item_quantity_buy_}+${cart.item.id}"  th:value="${cart.quantity}" />
+                                        <button class="plus_button" th:onclick="cartItemQuantityChange('plus',[[${cart.item.id}]])">➕</button>
+                                    </div>
+                                    <div class="less_quantity"  th:if="${cart.item.quantity}<6">
+                                        <span>( 수량</span>
+                                        <span th:text="${cart.item.quantity}"></span>
+                                        <span>개 남음 )</span>
+                                    </div>
+                                    <div class="wrap_item_quantity_buy_price">
+                                        <span>합계 :</span>
+                                        <strong class="item_quantity_buy_price item_quantity_buy_price_ssgdelivery" th:id="@{item_quantity_buy_price_}+${cart.item.id}" th:text="${cart.item.price * cart.quantity}"></strong>
+                                        <span>원</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="wrap_cart_one_item" th:unless="${cart.item.quantity}">
+                                <div class="wrap_cart_one_item_checkbox_zero">
+                                </div>
+                                <div class="wrap_cart_one_item_img">
+                                    <img class="item_img" th:src="@{/img/}+${cart.item.id}+@{.jpg}">
+                                </div>
+                                <div class="wrap_cart_one_item_name" th:text="${cart.item.name}">
+                                    상품이름
+                                </div>
+                                <div class="wrap_cart_one_item_zero">
+                                    <div>품절</div>
+                                    <div>
+                                        <button class="wrap_cart_one_item_zero_button"
+                                                th:onclick="cartItemDeleteZero([[${cart.item.id}]])">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="wrap_item_price_all">
+                    <span>총 합계 :</span>
+                    <strong id="item_price_all_ssgdelivery"></strong>
+                    <span>원</span>
+                </div>
+            </div>
+
+            <div id="wrap_cart_group_dawndelivery" th:if="${dawndelivery.size()}>0">
+                <div id="cart_group_dawndelivery">
+                    <div>
+                        새벽배송
+                    </div>
+                    <button onclick="selectAll('_dawndelivery')">새벽배송 전체 선택</button>
+                </div>
+                <div>
+                    <ul>
+                        <li th:each="cart : ${dawndelivery}">
+                            <div class="wrap_cart_one_item" th:if="${cart.item.quantity}>0">
+                                <div class="wrap_cart_one_item_checkbox">
+                                    <input type="checkbox" class="checkbox_item checkbox_item_dawndelivery" th:id="${cart.item.id}" onclick="checkboxClick()"/>
+                                </div>
+                                <div class="wrap_cart_one_item_img" th:src="@{/img/}+${cart.item.id}+@{.jpg}">
+                                    <img class="item_img"  th:src="@{/img/}+${cart.item.id}+@{.jpg}">
+                                </div>
+                                <div class="wrap_cart_one_item_name" th:text="${cart.item.name}">
+                                    상품이름
+                                </div>
+                                <div class="wrap_cart_one_item_button">
+                                    <div class="wrap_cart_item_quantity_button_plus_minus">
+                                        <button class="minus_button" th:onclick="cartItemQuantityChange('minus',[[${cart.item.id}]])">➖</button>
+                                        <input type="text" th:onchange="cartItemQuantityValueChange([[${cart.item.id}]])" class="cart_item_quantity_buy" th:id="@{cart_item_quantity_buy_}+${cart.item.id}"  th:value="${cart.quantity}" />
+                                        <button class="plus_button" th:onclick="cartItemQuantityChange('plus',[[${cart.item.id}]])">➕</button>
+                                    </div>
+                                    <div class="less_quantity"  th:if="${cart.item.quantity}<6">
+                                        <span>( 수량</span>
+                                        <span th:text="${cart.item.quantity}"></span>
+                                        <span>개 남음 )</span>
+                                    </div>
+                                    <div class="wrap_item_quantity_buy_price">
+                                        <span>합계 :</span>
+                                        <strong class="item_quantity_buy_price item_quantity_buy_price_dawndelivery" th:id="@{item_quantity_buy_price_}+${cart.item.id}" th:text="${cart.item.price * cart.quantity}"></strong>
+                                        <span>원</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="wrap_cart_one_item" th:unless="${cart.item.quantity}">
+                                <div class="wrap_cart_one_item_checkbox_zero">
+                                </div>
+                                <div class="wrap_cart_one_item_img">
+                                    <img class="item_img" th:src="@{/img/}+${cart.item.id}+@{.jpg}">
+                                </div>
+                                <div class="wrap_cart_one_item_name" th:text="${cart.item.name}">
+                                    상품이름
+                                </div>
+                                <div class="wrap_cart_one_item_zero">
+                                    <div>품절</div>
+                                    <div>
+                                        <button class="wrap_cart_one_item_zero_button"
+                                                th:onclick="cartItemDeleteZero([[${cart.item.id}]])">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="wrap_item_price_all">
+                    <span>총 합계 :</span>
+                    <strong id="item_price_all_dawndelivery"></strong>
+                    <span>원</span>
+                </div>
+            </div>
+
+            <div id="wrap_cart_group_delivery" th:if="${delivery.size()}>0">
+                <div id="cart_group_delivery">
+                    <div id="cart_group_delivery">
+                        <div>
+                            택배
+                        </div>
+                        <button onclick="selectAll('_delivery')">택배 전체 선택</button>
+                    </div>
+                </div>
+                <div>
+                    <ul>
+                        <li th:each="cart : ${delivery}">
+                            <div class="wrap_cart_one_item" th:if="${cart.item.quantity}>0">
+                                <div class="wrap_cart_one_item_checkbox">
+                                    <input type="checkbox" class="checkbox_item checkbox_item_delivery" th:id="${cart.item.id}" onclick="checkboxClick()"/>
+                                </div>
+                                <div class="wrap_cart_one_item_img">
+                                    <img class="item_img" th:src="@{/img/}+${cart.item.id}+@{.jpg}">
+                                </div>
+                                <div class="wrap_cart_one_item_name" th:text="${cart.item.name}">
+                                    상품이름
+                                </div>
+                                <div class="wrap_cart_one_item_button">
+                                    <div class="wrap_cart_item_quantity_button_plus_minus">
+                                        <button class="minus_button" th:onclick="cartItemQuantityChange('minus',[[${cart.item.id}]])">➖</button>
+                                        <input type="text" th:onchange="cartItemQuantityValueChange([[${cart.item.id}]])" class="cart_item_quantity_buy" th:id="@{cart_item_quantity_buy_}+${cart.item.id}"  th:value="${cart.quantity}" />
+                                        <button class="plus_button" th:onclick="cartItemQuantityChange('plus',[[${cart.item.id}]])">➕</button>
+                                    </div>
+                                    <div class="less_quantity"  th:if="${cart.item.quantity}<6">
+                                        <span>( 수량</span>
+                                        <span th:text="${cart.item.quantity}"></span>
+                                        <span>개 남음 )</span>
+                                    </div>
+                                    <div class="wrap_item_quantity_buy_price">
+                                        <span>합계 :</span>
+                                        <strong class="item_quantity_buy_price item_quantity_buy_price_delivery" th:id="@{item_quantity_buy_price_}+${cart.item.id}" th:text="${cart.item.price * cart.quantity}"></strong>
+                                        <span>원</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="wrap_cart_one_item" th:unless="${cart.item.quantity}">
+                                <div class="wrap_cart_one_item_checkbox_zero">
+                                </div>
+                                <div class="wrap_cart_one_item_img">
+                                    <img class="item_img" th:src="@{/img/}+${cart.item.id}+@{.jpg}">
+                                </div>
+                                <div class="wrap_cart_one_item_name" th:text="${cart.item.name}">
+                                    상품이름
+                                </div>
+                                <div class="wrap_cart_one_item_zero">
+                                    <div>품절</div>
+                                    <div>
+                                        <button class="wrap_cart_one_item_zero_button"
+                                                th:onclick="cartItemDeleteZero([[${cart.item.id}]])">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="wrap_item_price_all">
+                    <span>총 합계 :</span>
+                    <strong id="item_price_all_delivery"></strong>
+                    <span>원</span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="wrap_cart_buy">
+            <div>
+                <div class="wrap_cart_buy_container">
+                    <div class="wrap_cart_buy_container_first">선택한 상품 개수</div>
+                    <div class="wrap_cart_buy_container_second">
+                        <span id="cart_buy_item_kind_all"></span>
+                        <span>개</span>
+                    </div>
+                </div>
+                <div class="wrap_cart_buy_container">
+                    <div class="wrap_cart_buy_container_first">총 수량 개수</div>
+                    <div class="wrap_cart_buy_container_second">
+                        <span id="cart_buy_item_quantity_all"></span>
+                        <span>개</span>
+                    </div>
+                </div>
+                <div class="wrap_cart_buy_container">
+                    <div class="wrap_cart_buy_container_first">총 결제 금액</div>
+                    <div class="wrap_cart_buy_container_second">
+                        <span id="cart_buy_item_price_all"></span>
+                        <span>원</span>
+                    </div>
+                </div>
+            </div>
+            <div id="wrap_cart_buy_button">
+                <button id="cart_buy_button" onclick="cartItemBuy()">결제하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>

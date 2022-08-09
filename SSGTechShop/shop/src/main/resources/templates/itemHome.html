@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>상품 목록</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script th:inline="javascript">
+    const item_price_hidden = new Map();//아이템 가격
+    const item_quantity_hidden = new Map();//아이템 수량
+      /*[# th:each="item : ${itemList}"]*/
+      item_price_hidden.set([[${item.id}]], [[${item.price}]]);
+      item_quantity_hidden.set([[${item.id}]] , [[${item.quantity}]]);
+      /*[/]*/
+
+      //카트 담을 아이템 수
+      function count(type,index){
+        const itemPriceElement = document.getElementById('item_price_'+index);//아이템 가격
+        const itemQuantityElement = document.getElementById('item_quantity_'+index);//아이템 수량
+        const itemQuantityBuyElement = document.getElementById('item_quantity_buy_'+index);//아이템 구매 갯수
+        const itemQuantityBuyPriceElement = document.getElementById('item_quantity_buy_price_'+index);//아이템 구매 합계 가격
+        itemPriceElement.innerText = item_price_hidden.get(index);
+        itemQuantityElement.innerText = item_quantity_hidden.get(index);
+        let item_price = parseInt(itemPriceElement.innerText);
+        let item_quantity = parseInt(itemQuantityElement.innerText);
+        let item_quantity_buy = parseInt(itemQuantityBuyElement.value);
+        if(type=='plus' && item_quantity>item_quantity_buy){
+          item_quantity_buy = item_quantity_buy+1;
+        }else if(type=='minus' && 1<item_quantity_buy){
+          item_quantity_buy = item_quantity_buy-1;
+        }else if(type=='zero' &&  (item_quantity<item_quantity_buy || item_quantity_buy<1)){
+          item_quantity_buy = 1;
+        }
+        let item_quantity_buy_price = item_quantity_buy*item_price;
+        itemQuantityBuyElement.value = item_quantity_buy;
+        itemQuantityBuyPriceElement.innerText = item_quantity_buy_price;
+      }
+
+      //input감지
+      function quantityValueChange(index){
+        const itemQuantityBuyElement = document.getElementById('item_quantity_buy_'+index);
+        if(isNaN(itemQuantityBuyElement.value)) itemQuantityBuyElement.value=parseInt(1);
+        count('zero',index);
+      }
+  </script>
+  <script src="/js/itemHome.js"></script>
+  <script src="/js/payHome.js"></script>
+  <link rel="stylesheet" href="/css/itemHome.css">
+  <link rel="stylesheet" href="/css/payHome.css">
+</head>
+
+<body>
+  <div id="wrap">
+    <div id="header">
+      <a id="menu_cart" href="/cart">장바구니🛒</a>
+    </div>
+    <div id="wrap_itemList">
+      <div id="wrap_itemList_title" >
+        <h1>상품 목록</h1>
+      </div>
+      <div id ="wrap_item">
+        <ul>
+          <li th:each="item : ${itemList}" class="item_li">
+            <div class="item_information">
+              <div class="item_information_top">
+                <div th:classappend="${item.group}=='쓱배송' ? 'item_group_ssgdelivery' : (${item.group}=='새벽배송' ? 'item_group_dawndelivery' : 'item_group_delivery') "   th:text="${item.group}" ></div>
+                <div class="item_img">
+                  <img class="item_detail_img" th:src="|/img/${item.id}.jpg|">
+                </div>
+              </div>
+              <div class="item_information_center">
+                <div class="item_name" th:text="${item.name}">동글동글 사탕</div>
+                <div class="wrap_item_price_quantity">
+                  <div class="wrap_item_price">
+                    <strong class="item_price" th:id="|item_price_${item.id}|" th:text="${item.price}"></strong>
+                    <span>원</span>
+                  </div>
+                  <div class="wrap_item_quantity" th:classappend="${item.quantity} < 6 ? 'quantity_less'">
+                    <span>수량 : </span>
+                    <strong class="item_quantity" th:id="|item_quantity_${item.id}|" th:text="${item.quantity}"></strong>
+                    <span>개</span>
+                  </div>
+                </div>
+              </div>
+              <div class="item_information_bottom" th:if="${item.quantity}>0">
+                <div class="wrap_item_quantity_button">
+                  <button class="plus_button" th:onclick="count('plus',[[${item.id}]])">➕</button>
+                  <input type="text" class="item_quantity_buy"  th:id="|item_quantity_buy_${item.id}|" th:onchange="quantityValueChange([[${item.id}]])"  value="1" />
+                  <button class="minus_button" th:onclick="count('minus',[[${item.id}]])">➖</button>
+                </div>
+                <div class="wrap_item_quantity_buy_price">
+                  <span>합계 : </span>
+                  <strong class="item_quantity_buy_price" th:id="|item_quantity_buy_price_${item.id}|" th:text="${item.price}"></strong>
+                  <span>원</span>
+                </div>
+                <div class="wrap_item_cart_button">
+                  <button class="item_cart_button" th:onclick="cartPut([[${item.id}]])">장바구니 담기</button>
+                  <button class="item_pay_button" th:onclick="payPut([[${item.id}]])">바로 구매하기</button>
+                </div>
+              </div>
+
+              <div class="item_information_bottom"  th:unless="${item.quantity}" >
+                <div class="item_quantity_zero">품절</div>
+              </div>
+            </div>
+
+          </li>
+
+
+        </ul>
+      </div> 
+    </div>
+
+  </div>
+</body>
+</html>

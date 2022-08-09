@@ -1,0 +1,89 @@
+#wrap_pay{
+  overflow: hidden;
+  width: 1340px;
+  margin: 0 auto;
+}
+
+a{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+ul{
+  list-style: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+#wrap_container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#wrap_paymemt{
+  width: 100%;
+  text-align: center;
+}
+
+/* 결제 상품 목록 */
+.payment_contents{
+  padding: 70px 70px 0 70px;
+  font-size: 25px;
+}
+.wrap_one_item{
+  display: flex;
+  width: 600px;
+  margin: 0 auto;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: gray 1px solid;
+}
+.wrap_one_item > div{
+  padding-right: 10px;
+}
+.one_item_img{width: 60px;}
+.one_item_name{width: 230px;}
+.one_item_quantity{width: 100px;}
+.one_item_buy{width: 170px;}
+
+.pay_item_img{
+  height: 60px;
+  width: 60px;
+}
+
+.message{
+  text-align: center;
+  font-size: 26px;
+  padding: 70px;
+}
+
+/* 버튼 */
+
+.wrap_menu_button{
+  padding-top: 70px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.menu_button,
+.menu_button_pay {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 5px;
+}
+.menu_button{
+  background-color: rgb(84,126,0);
+}
+.menu_button_pay{
+  background-color: indianred;
+}
+
+.menu_button > a,
+.menu_button_pay > a{
+  padding: 20px;
+  font-size: 20px;
+  color: white;
+}

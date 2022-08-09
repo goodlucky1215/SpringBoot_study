@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>결제 내역</title>
+</head>
+
+<body>
+<div id="wrap_pay" th:fragment="payHomeSuccess">
+    <div id="wrap_container">
+        <div id="wrap_paymemt" >
+            <div class="payment_contents">결제하는 상품 목록</div>
+            <div>
+                <ul id="wrap_one_item_ul">
+                    <li th:each="cart : ${result.itemBuyList}">
+                       <div class="wrap_one_item"  th:id="${cart.item.id}">
+                           <div class="one_item_img">
+                               <img class="pay_item_img" th:src="@{/img/}+${cart.item.id}+@{.jpg}">
+                           </div>
+                           <div class="one_item_name" th:text="${cart.item.name}"></div>
+                           <div class="one_item_quantity">
+                               <span class="one_item_quantity_su" th:id="${cart.quantity}" th:text="${cart.quantity}"></span>
+                               <span>개</span>
+                           </div>
+                           <div class="one_item_buy">
+                               <span th:text="${cart.item.price * cart.quantity}"></span>
+                               <span>원</span>
+                           </div>
+                       </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="payment_contents">
+                <span>총 결제 금액</span>
+                <strong th:text="${result.message}"></strong>
+            </div>
+        </div>
+        <div class="wrap_menu_button">
+            <div class="menu_button">
+                <a class="home_button" href="/">상품목록🏡</a>
+            </div>
+            <div class="menu_button">
+                <a class="cart_button" href="/cart">장바구니🛒</a>
+            </div>
+            <div class="menu_button_pay">
+                <a class="pay_button" th:onclick="itemPay([[${way}]])">결제하기💲</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="payHomeFail">
+    <div class="message" th:text="${result.message}"></div>
+    <div class="wrap_menu_button">
+        <div class="menu_button">
+            <a class="home_button" href="/">상품목록🏡</a>
+        </div>
+        <div class="menu_button">
+            <a class="cart_button" href="/cart">장바구니🛒</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
