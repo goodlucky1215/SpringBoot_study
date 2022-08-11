@@ -18,12 +18,21 @@ public class CartRepository {
 
     //장바구니 목록
     public List<CartEntity> findCartAll(MemberEntity memberEntity) {
+       return em.createQuery("select c from Cart c" +
+               " join fetch c.member m" +
+               " join fetch c.item i" +
+               " where c.member = :member", CartEntity.class)
+                .setParameter("member", memberEntity)
+                .getResultList();
+    }
+
+  /* n:1문제
+    public List<CartEntity> findCartAll(MemberEntity memberEntity) {
        return em.createQuery("select c from Cart c where c.member = :member", CartEntity.class)
                 .setParameter("member", memberEntity)
                 .getResultList();
     }
 
-  /*
     public List<CartEntity> findCartAll(MemberEntity memberEntity) {
         System.out.println(" findCartAll===================== 장바구니 3개까지");
        return em.createQuery("select c from Cart c where c.member = :member order by c.item.id desc", CartEntity.class)
@@ -43,16 +52,6 @@ public class CartRepository {
     //특정 장바구니 제품 아이템
     public CartEntity findItemCart(ItemEntity itemEntity, MemberEntity memberEntity) {
         List<CartEntity> cartEntity =
-                em.createQuery("select c from Cart c where c.item = :item and c.member = :member", CartEntity.class)
-                .setParameter("item", itemEntity)
-                .setParameter("member", memberEntity)
-                .getResultList();
-        if(cartEntity.isEmpty()) return null;
-        else return cartEntity.get(0);
-    }
-/*
-    public CartEntity findItemCart(ItemEntity itemEntity, MemberEntity memberEntity) {
-        List<CartEntity> cartEntity =
                 em.createQuery("select c from Cart c" +
                         " join fetch c.item i"+
                         " join fetch c.member m"+
@@ -63,7 +62,7 @@ public class CartRepository {
         if(cartEntity.isEmpty()) return null;
         else return cartEntity.get(0);
     }
-*/
+
 
 
     //장바구니 상품 저장

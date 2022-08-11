@@ -25,12 +25,12 @@ public class CartEntity {
     }
 
     @Id
-    @ManyToOne//(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="item_id")
     private ItemEntity item;
 
     @Id
-    @ManyToOne//(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     private MemberEntity member;
 

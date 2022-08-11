@@ -3,6 +3,7 @@ package rookie.shop.dto;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.NumberFormat;
 
 @Data
 @Getter
@@ -17,8 +18,10 @@ public class Item {
 
     private String name;
 
+    @NumberFormat(pattern = "###,###")
     private int price;
 
+    @NumberFormat(pattern = "###,###")
     private int quantity;
 
     private String group;

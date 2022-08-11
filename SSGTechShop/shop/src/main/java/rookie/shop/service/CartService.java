@@ -34,31 +34,23 @@ public class CartService {
 
     //장바구니 목록
     public Map<String,List<Cart>> findCartAll(Long member_id) {
-        System.out.println("-===================================카트 전체 가져오기1 ==================================================");
         List<CartEntity> cartEntityList = cartRepository.findCartAll(new MemberEntity(member_id));
-        System.out.println("-===================================카트 전체 가져오기2 ==================================================");
         cartEntityList.get(0).getItem().getName();
         return checkItemQuantityAndGroup(cartEntityList);
     }
 
     //장바구니 목록 그룹 나누고, 제품 수량 체크
     private Map<String,List<Cart>> checkItemQuantityAndGroup(List<CartEntity> cartEntityList) {
-        System.out.println("-===================================아이템 정보 가져오기1 ==================================================");
         List<Cart> cartDtoList = cartEntityList.stream()
                 .map(cartEntity -> modelMapper.map(cartEntity, Cart.class)).collect(Collectors.toList());
-        System.out.println("-===================================아이템 정보 가져오기2 ==================================================");
         Map<String,List<Cart>> cartGroupMap = new HashMap<>();
-        System.out.println("-===================================아이템 정보 가져오기3 ==================================================");
         String ssgDelivery = "쓱배송";
         String dawndelivery = "새벽배송";
         String delivery = "택배";
-        System.out.println("-===================================아이템 정보 가져오기4 ==================================================");
         cartGroupMap.put(ssgDelivery,new ArrayList<>());
         cartGroupMap.put(dawndelivery,new ArrayList<>());
         cartGroupMap.put(delivery,new ArrayList<>());
-        System.out.println("-===================================아이템 정보 가져오기5 ==================================================");
         for(int i=0;i<cartDtoList.size();i++){
-            System.out.println("-===================================아이템 정보 가져오기6 ==================================================");
             Item item = cartDtoList.get(i).getItem();
             int itemQuantity = cartDtoList.get(i).getQuantity();
             //만약 남은 수량이 장바구니 수보다 적다면
@@ -82,20 +74,15 @@ public class CartService {
 
     //장바구니 수량 변경
     public Map cartItemUpdate(Item item, Member member,int itemQuantity) {
-        System.out.println("=================  장바구니 수량 변경");
         //MemberEntity memberEntity = modelMapper.map(member, MemberEntity.class);
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setId(1L);
-        System.out.println("=================  아이템 정보 변경");
         //ItemEntity itemEntity = itemRepository.findItem(item.getId());
         //ItemEntity itemEntity = modelMapper.map(item, ItemEntity.class);
         ItemEntity itemEntity = new ItemEntity();
         itemEntity.setId(item.getId());
-        System.out.println("=================  갯수 변경");
         CartEntity findCartEntity = cartRepository.findItemCart(itemEntity, memberEntity);
-        System.out.println("=================  dto 변경");
         Cart findCartDto = modelMapper.map(findCartEntity, Cart.class);
-        System.out.println("=================  item dto 변경");
         //Item itemDto = modelMapper.map(itemEntity, Item.class);
         Item itemDto = modelMapper.map(findCartEntity.getItem(), Item.class);
 
@@ -103,7 +90,6 @@ public class CartService {
             System.out.println("itemDto.getQuantity() => "+ itemDto.getQuantity());
             return new ResultCommon().resultMap(findCartDto,new ResultMessage().itemGetExceed(itemDto.getName(), itemDto.getQuantity()),false);
         }
-        System.out.println("=================  update 변경");
         findCartEntity.setQuantity(itemQuantity);// => 영속성에 있어서 이렇게만해도 자동 업데이트가 일어난다.
         findCartDto.setQuantity(itemQuantity);
         return new ResultCommon().resultMap(findCartDto,new ResultMessage().cartItemQuantityChange(itemQuantity),true);

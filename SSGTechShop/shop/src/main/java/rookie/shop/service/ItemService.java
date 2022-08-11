@@ -2,8 +2,6 @@ package rookie.shop.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import rookie.shop.common.ResultCommon;
@@ -18,9 +16,7 @@ import rookie.shop.exception.ItemException;
 import rookie.shop.repository.CartRepository;
 import rookie.shop.repository.ItemRepository;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,39 +31,10 @@ public class ItemService {
     private final CartRepository cartRepository;
 
     private final ModelMapper modelMapper;
+
     //상품 목록
     public List<Item> findItemAll(){
         List<ItemEntity> itemEntityList = itemRepository.findItemAll();
-        List<Item> ItemDtoList = itemEntityList.stream()
-                .map(itemEntity -> modelMapper.map(itemEntity, Item.class)).collect(Collectors.toList());
-        return ItemDtoList;
-    }
-
-    //상품 목록
-    public List<Item> findItemAll2(){
-        List<ItemEntity> itemEntityList = null;
-        try{
-            itemEntityList = itemRepository.findItemAll1();
-        }catch (DuplicateKeyException e){
-            System.out.println("DuplicateKeyException가 여기서 잡혀야 해");
-        }catch (ItemException e){
-            System.out.println("ItemException에서 잡혀버린다.");
-        }
-        List<Item> ItemDtoList = itemEntityList.stream()
-                .map(itemEntity -> modelMapper.map(itemEntity, Item.class)).collect(Collectors.toList());
-        return ItemDtoList;
-    }
-
-    //상품 목록
-    public List<Item> findItemAll3(){
-        List<ItemEntity> itemEntityList = null;
-        try{
-            itemEntityList = itemRepository.findItemAll2();
-        }catch (BadSqlGrammarException e){
-            System.out.println("DuplicateKeyException가 여기서 잡혀야 해");
-        }catch (ItemException e){
-            System.out.println("ItemException에서 잡혀버린다.");
-        }
         List<Item> ItemDtoList = itemEntityList.stream()
                 .map(itemEntity -> modelMapper.map(itemEntity, Item.class)).collect(Collectors.toList());
         return ItemDtoList;

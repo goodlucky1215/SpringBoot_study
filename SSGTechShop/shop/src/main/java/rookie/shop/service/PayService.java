@@ -52,7 +52,6 @@ public class PayService {
     //장바구니 => 구매 목록 리스트
     public Map cartItemBuy(List<Integer> payItemId){
         List<CartEntity> cartEntityList = cartInfoList(payItemId);
-        System.out.println("======================장바구니 : 구매 목록 리스트");
         List<Cart> cartDtoList = cartEntityList.stream()
                 .map(cartEntity -> modelMapper.map(cartEntity, Cart.class)).collect(Collectors.toList());
         if(cartDtoList.size()<=0) {
@@ -126,7 +125,6 @@ public class PayService {
     }
 
     public List<CartEntity> cartInfoList(List<Integer> param){
-        System.out.println("cartInfoLoist ==============================");
         List<CartEntity> cartEntityList = new ArrayList<>();
         Member memberDto= new Member(TestMember.memberId);
         MemberEntity memberEntity = modelMapper.map(memberDto,MemberEntity.class);

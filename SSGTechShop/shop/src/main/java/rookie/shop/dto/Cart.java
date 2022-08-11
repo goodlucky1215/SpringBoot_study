@@ -3,6 +3,7 @@ package rookie.shop.dto;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.NumberFormat;
 
 @Data
 @Getter
@@ -24,5 +25,7 @@ public class Cart {
 
     private Item item;
     private Member member;
+
+    @NumberFormat(pattern = "###,###")
     private int quantity;
 }

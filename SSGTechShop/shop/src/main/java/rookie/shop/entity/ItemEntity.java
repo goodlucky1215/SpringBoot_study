@@ -10,11 +10,6 @@ import javax.persistence.*;
 @Getter @Setter
 public class ItemEntity {
 
-    public ItemEntity() {
-    }
-    public ItemEntity(Long id) {
-        this.id = id;
-    }
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="item_id")
     private Long id;
