@@ -3,9 +3,9 @@ package rookie.shop.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import rookie.shop.dto.Item;
 import rookie.shop.dto.Member;
 import rookie.shop.service.ItemService;
@@ -23,7 +23,6 @@ public class ItemController {
     //제품 목록 화면
     @GetMapping("/")
     public String mainHome(Model model){
-        //throw new RuntimeException();
         List<Item> itemDtoList = itemService.findItemAll();
         model.addAttribute("itemList", itemDtoList);
         return "itemHome";
@@ -33,7 +32,8 @@ public class ItemController {
     //제품 장바구니에 담기
     @PostMapping("/AddItemCart")
     @ResponseBody
-    public Map cartPut(ItemPutForm itemPutForm){
+    public Map cartPut(@RequestBody @Validated ItemPutForm itemPutForm){
+        System.out.println(itemPutForm.toString());
         Item itemDto = new Item(itemPutForm.getItem());
         Member memberDto = new Member(itemPutForm.getMember());
         Map<String,Object> result = itemService.cartPut(itemDto, memberDto, itemPutForm.getQuantity());

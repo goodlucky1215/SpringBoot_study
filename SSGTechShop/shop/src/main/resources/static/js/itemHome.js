@@ -1,12 +1,16 @@
 //장바구니 담기
 function cartPut(index) {
+  var ItemPutForm = JSON.stringify({
+    quantity : parseInt(document.getElementById('item_quantity_buy_'+index).value),
+    member : 1,
+    item :  parseInt(index)
+  });
+
   $.ajax({
     url: "/AddItemCart",
     type: "POST",
-    data: {
-      quantity : document.getElementById('item_quantity_buy_'+index).value,
-      item : index
-    },
+    contentType : "application/json",
+    data: ItemPutForm,
     success: function(data){
       alert(data["message"]);
       if(data["result"]) cartGo();
