@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import rookie.shop.dto.Item;
 import rookie.shop.dto.Member;
+import rookie.shop.logtrace.Timer;
 import rookie.shop.service.ItemService;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class ItemController {
     private final ItemService itemService;
 
     //제품 목록 화면
+    @Timer
     @GetMapping("/")
     public String mainHome(Model model){
         List<Item> itemDtoList = itemService.findItemAll();
