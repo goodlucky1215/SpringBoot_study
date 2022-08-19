@@ -22,8 +22,8 @@ public class ItemController {
     private final ItemService itemService;
 
     //제품 목록 화면
-    @Timer
     @GetMapping("/")
+    @Timer
     public String mainHome(Model model){
         List<Item> itemDtoList = itemService.findItemAll();
         model.addAttribute("itemList", itemDtoList);
