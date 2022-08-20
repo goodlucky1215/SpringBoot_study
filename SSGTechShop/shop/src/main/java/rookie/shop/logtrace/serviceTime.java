@@ -14,7 +14,10 @@ import org.springframework.util.StopWatch;
 @Component
 public class serviceTime {
 
-    @Pointcut("@annotation(rookie.shop.logtrace.Timer)")
+    //@Pointcut("@annotation(rookie.shop.logtrace.Timer)")
+    //private void timer() {}
+
+    @Pointcut("execution(* rookie.shop.controller..*Controller.*(..))")
     private void timer() {}
 
     @Around("timer()")
