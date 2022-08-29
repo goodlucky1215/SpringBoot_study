@@ -21,11 +21,11 @@ class CartRepositoryTest {
     @Test
     public void 장바구니목록(){
         MemberEntity memberEntity = new MemberEntity();
-        memberEntity.setId(1L);
+        memberEntity.setId(2L);
 
         List<CartEntity> cartAll = cartRepository.findCartAll(memberEntity);
 
-        assertEquals(cartAll.size(), 6);
+        assertEquals(cartAll.size(), 0);
     }
 
 
