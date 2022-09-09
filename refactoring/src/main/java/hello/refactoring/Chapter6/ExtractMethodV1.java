@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 
 /*
-*  리팩토링_마틴 파울러
-*  chapter6 : 메서드 정리
-*  리팩토링 전
+*  메서드 추출
 * */
 public class ExtractMethodV1 {
 
