@@ -1,6 +1,8 @@
 package hello.refactoring.Chapter8;
 
 import java.util.Collection;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 /*
@@ -29,9 +31,12 @@ public class ChangeValueToReferenceV2 {
 
         private Customer _customer;
 
+        //2. 생성자 호출을 팩토리 메서드 호출로 수정 => getNamed로 메서드이름 변경
         public Order(String customerName){
-            _customer = Customer.create(customerName);
+            //_customer = Customer.create(customerName);
+            _customer = Customer.getNamed(customerName);
         }
+
         public String getCustomerName() {
             return _customer.getName();
         }
@@ -44,12 +49,28 @@ public class ChangeValueToReferenceV2 {
 
     static class Customer{
 
-        public static Customer create(String name){
-            return new Customer(name);
+        private static Dictionary _instances = new Hashtable();
+
+        private void store(){
+            _instances.put(this.getName(), this);
+        }
+
+        static void loadCustomer(){
+            new Customer("car center").store();
+            new Customer("gas factory").store();
+            new Customer("커피 자판기 운영업").store();
+        }
+
+        //1. 생성자를 팩토리 메서드로 전환 => 팩토리 메서드를 수정해서 Customer instance를 반환한다.
+        // => Customer instance를 반환하므로 메서드명을 getNamed로 변경을 실시해서 확실히 나타내야한다.
+        //public static Customer create(String name){
+        public static Customer getNamed(String name){
+            return (Customer) _instances.get(name);
         }
 
         private final String _name;
 
+        //3. 생성자 메서드를 private하게 변경
         private Customer(String name){
             _name = name;
         }
