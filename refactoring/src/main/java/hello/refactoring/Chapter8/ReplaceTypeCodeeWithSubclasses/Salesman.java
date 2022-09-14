@@ -9,6 +9,7 @@ public class Salesman extends Employee{
 
     @Override
     int getType() {
+        System.out.println("나는 영업이야~~");
         return Employee.SALESMAN;
     }
 }
