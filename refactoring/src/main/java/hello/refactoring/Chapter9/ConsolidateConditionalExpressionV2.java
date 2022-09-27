@@ -18,12 +18,27 @@ public class ConsolidateConditionalExpressionV2 {
 
 
         //2번 : 겹친 조건문은 AND로 하나의 조건문으로 바꾼다.
-        return (_a==123 && _b==22) ? 1 : 11111;
+        if (_a==123 && _b==22) return 1;
+
+
+        //3번 : 조건의 공통 실행 코드는 빼낸다.
+        if(_a==10){
+            _b = 10;
+        }else {
+            _b = 20;
+        }
+        send();
+
+
+        return 11111;
     }
 
     boolean isNotNumber(){
         return (_a==0 || _a>100 || _a<-4);
     }
 
+    void send(){
+        System.out.println("값 추출");
+    }
 
 }

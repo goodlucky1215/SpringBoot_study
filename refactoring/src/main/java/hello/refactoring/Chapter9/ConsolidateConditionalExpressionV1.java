@@ -22,6 +22,20 @@ public class ConsolidateConditionalExpressionV1 {
         if(_a==123) {
             if (_b == 22) return 1;
         }
+
+        //3번
+        if(_a==10){
+            _b = 10;
+            send();
+        }else{
+            _b = 20;
+            send();
+        }
+
         return 11111;
+    }
+    
+    void send(){
+        System.out.println("값 추출");
     }
 }
