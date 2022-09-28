@@ -14,7 +14,7 @@ import rookie.shop.entity.CartEntity;
 import rookie.shop.entity.ItemEntity;
 import rookie.shop.entity.MemberEntity;
 import rookie.shop.repository.CartRepository;
-import rookie.shop.repository.ItemRepository;
+import rookie.shop.repository.ItemRepositoryInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class PayService {
 
-    private final ItemRepository itemRepository;
+    private final ItemRepositoryInterface itemRepository;
     private final CartRepository cartRepository;
 
     private final ModelMapper modelMapper;

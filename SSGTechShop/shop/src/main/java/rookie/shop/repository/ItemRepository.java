@@ -8,11 +8,12 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 //상품 테이블 관련 DB CRUD
-@Repository
-@RequiredArgsConstructor
-public class ItemRepository {
+//@Repository
+//@RequiredArgsConstructor
+public class ItemRepository implements ItemRepositoryInterface {
 
-    private final EntityManager em;
+    //private final EntityManager em;
+    private EntityManager em;
 
     //상품 목록
     public List<ItemEntity> findItemAll(){

@@ -7,7 +7,8 @@ import rookie.shop.entity.MemberEntity;
 
 import java.util.List;
 
-public interface CartRepositoryDataJPA extends JpaRepository<CartEntity, Long> {
+//public interface CartRepositoryDataJPA extends JpaRepository<CartEntity, Long> {
+public interface CartRepositoryDataJPA {
 
     //장바구니 목록
     List<CartEntity> findByMember_IdLike(MemberEntity memberEntity);

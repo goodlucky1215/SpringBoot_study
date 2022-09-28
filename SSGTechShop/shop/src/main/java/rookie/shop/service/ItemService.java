@@ -15,6 +15,7 @@ import rookie.shop.entity.MemberEntity;
 import rookie.shop.exception.ItemException;
 import rookie.shop.repository.CartRepository;
 import rookie.shop.repository.ItemRepository;
+import rookie.shop.repository.ItemRepositoryInterface;
 
 
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class ItemService {
 
-    private final ItemRepository itemRepository;
+    private final ItemRepositoryInterface itemRepository;
     private final CartRepository cartRepository;
 
     private final ModelMapper modelMapper;
