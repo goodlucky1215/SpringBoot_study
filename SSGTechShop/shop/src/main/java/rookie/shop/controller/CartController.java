@@ -26,7 +26,7 @@ public class CartController {
 
     //사용자 장바구니
     @GetMapping("/cart")
-    public String cartHome(Model model){
+    public String userCartPage(Model model){
         Map<String, List<Cart>> cartGroupMap = cartService.findCartAll(TestMember.memberId);
         model.addAttribute("ssgdelivery",cartGroupMap.get("쓱배송"));
         model.addAttribute("dawndelivery",cartGroupMap.get("새벽배송"));
@@ -37,7 +37,7 @@ public class CartController {
     //사용자 장바구니 제품 개수 변경
     @PostMapping("/cartItemUpdate")
     @ResponseBody
-    public Map<String,Object> cartItemUpdate(ItemPutForm itemPutForm){
+    public Map<String,Object> userCartItemUpdate(ItemPutForm itemPutForm){
         Item itemDto = new Item(itemPutForm.getItem());
         Member memberDto = new Member(itemPutForm.getMember());
         Map<String,Object> map = cartService.cartItemUpdate(itemDto, memberDto, itemPutForm.getQuantity());
@@ -47,21 +47,21 @@ public class CartController {
     //장바구니에서 제품 삭제
     @PostMapping("/cartItemDelete")
     @ResponseBody
-    public Map<String,Object> cartItemDelete(@RequestBody List<Long> param){
-        List<Cart> cartDtoList = cartInfoList(param);
-        Map<String,Object> map = cartService.cartItemDelete(cartDtoList);
+    public Map<String,Object> userCartItemDelete(@RequestBody List<Long> param){
+        List<Cart> cartDeleteItemListDto = cartItemDeleteList(param);
+        Map<String,Object> map = cartService.cartItemDelete(cartDeleteItemListDto);
         return map;
     }
 
 
-    public List<Cart> cartInfoList(List<Long> param){
-        List<Cart> cartDtoList = new ArrayList<>();
+    public List<Cart> cartItemDeleteList(List<Long> param){
+        List<Cart> cartDeleteItemListDto = new ArrayList<>();
         Member memberDto = new Member(TestMember.memberId);
         for(Long itemId : param){
             Item itemDto = new Item(itemId);
-            cartDtoList.add(new Cart(itemDto, memberDto));
+            cartDeleteItemListDto.add(new Cart(itemDto, memberDto));
         }
-        return cartDtoList;
+        return cartDeleteItemListDto;
     }
 
 }

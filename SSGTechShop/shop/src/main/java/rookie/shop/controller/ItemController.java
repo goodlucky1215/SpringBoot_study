@@ -24,7 +24,7 @@ public class ItemController {
     //제품 목록 화면
     @GetMapping("/")
     @Timer
-    public String mainHome(Model model){
+    public String itemListPage(Model model){
         List<Item> itemDtoList = itemService.findItemAll();
         model.addAttribute("itemList", itemDtoList);
         return "itemHome";
@@ -34,7 +34,7 @@ public class ItemController {
     //제품 장바구니에 담기
     @PostMapping("/AddItemCart")
     @ResponseBody
-    public Map cartPut(@RequestBody @Validated ItemPutForm itemPutForm){
+    public Map itemAddCart(@RequestBody @Validated ItemPutForm itemPutForm){
         System.out.println(itemPutForm.toString());
         Item itemDto = new Item(itemPutForm.getItem());
         Member memberDto = new Member(itemPutForm.getMember());

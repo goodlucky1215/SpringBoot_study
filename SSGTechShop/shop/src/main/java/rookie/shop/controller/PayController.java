@@ -21,7 +21,7 @@ public class PayController {
     //1. way = direct : 아이템 목록 => 구매 목록 리스트(바로 구매)
     //2. way = cart   : 장바구니    => 구매 목록 리스트 @PathVariable("param") List<Long> param
     @GetMapping("/itemBuy/{way}/{param}")
-    public String cartItemBuy(@PathVariable("way") String way,@PathVariable("param") List<Integer> param, Model model){
+    public String itemBuyPage(@PathVariable("way") String way,@PathVariable("param") List<Integer> param, Model model){
         Map<String,Object> map = null;
         if("direct".equals(way)){
             map = payService.directItemBuy(param.get(0).longValue(), Math.toIntExact(param.get(1)));
