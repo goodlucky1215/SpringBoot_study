@@ -14,6 +14,7 @@ import rookie.shop.entity.CartEntity;
 import rookie.shop.entity.ItemEntity;
 import rookie.shop.entity.MemberEntity;
 import rookie.shop.repository.CartRepository;
+import rookie.shop.repository.CartRepositoryInterface;
 import rookie.shop.repository.ItemRepositoryInterface;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 public class PayService {
 
     private final ItemRepositoryInterface itemRepository;
-    private final CartRepository cartRepository;
+    private final CartRepositoryInterface cartRepository;
 
     private final ModelMapper modelMapper;
     //아이템 목록 => 구매 목록 리스트(바로 구매)

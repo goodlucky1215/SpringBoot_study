@@ -5,17 +5,16 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import rookie.shop.dto.Item;
 import rookie.shop.entity.ItemEntity;
 
-import javax.sql.DataSource;
 import java.util.List;
 
-@Repository
-@RequiredArgsConstructor
+//@Repository
+//@RequiredArgsConstructor
 public class ItemRepositoryJdbcTemplateV1 implements ItemRepositoryInterface {
 
-    private final JdbcTemplate template;
+    //private final JdbcTemplate template;
+    private JdbcTemplate template;
 
 
     @Override

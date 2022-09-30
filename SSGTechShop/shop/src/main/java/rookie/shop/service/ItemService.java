@@ -1,6 +1,7 @@
 package rookie.shop.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import rookie.shop.entity.ItemEntity;
 import rookie.shop.entity.MemberEntity;
 import rookie.shop.exception.ItemException;
 import rookie.shop.repository.CartRepository;
+import rookie.shop.repository.CartRepositoryInterface;
 import rookie.shop.repository.ItemRepository;
 import rookie.shop.repository.ItemRepositoryInterface;
 
@@ -26,15 +28,17 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class ItemService {
 
     private final ItemRepositoryInterface itemRepository;
-    private final CartRepository cartRepository;
+    private final CartRepositoryInterface cartRepository;
 
     private final ModelMapper modelMapper;
 
     //상품 목록
     public List<Item> findItemAll(){
+        log.info("itemRepo : {}",itemRepository.getClass());
         List<ItemEntity> itemEntityList = itemRepository.findItemAll();
         List<Item> ItemDtoList = itemEntityList.stream()
                 .map(itemEntity -> modelMapper.map(itemEntity, Item.class)).collect(Collectors.toList());

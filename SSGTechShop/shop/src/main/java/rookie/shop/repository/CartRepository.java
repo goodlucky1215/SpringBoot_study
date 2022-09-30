@@ -12,9 +12,10 @@ import java.util.List;
 //장바구니 테이블 관련 DB CRUD
 @Repository
 @RequiredArgsConstructor
-public class CartRepository {
+public class CartRepository implements CartRepositoryInterface {
 
     private final EntityManager em;
+    //private EntityManager em;
 
     //장바구니 목록
     public List<CartEntity> findCartAll(MemberEntity memberEntity) {
