@@ -1,7 +1,5 @@
 package hello.refactoring.Chapter6;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 /*
 * 1. 메서드 내용 직접 삽입
 * 2. 임시변수 내용 직접 삽입
