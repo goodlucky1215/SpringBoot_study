@@ -1,0 +1,24 @@
+package hello.Pattern.Ch1.Strategy.easy;
+
+/*
+* 전략패턴
+* 실행 중에 알고리즘으르 선택할 수 있는 디자인 패턴
+* 내가 원하는 클래스로 유연하게 변경해서 사용이 가능하다.
+* */
+public class Animal {
+
+    //동물의 소리는 동물에따라 변경됨
+    private SoundStrategy _soundStrategy;
+
+    //그 동물 소리를 캡슐화
+    public void setSoundStrategy(SoundStrategy soundStrategy) {
+        this._soundStrategy = soundStrategy;
+    }
+
+    public void goSound(){
+        System.out.println(_soundStrategy.sound());
+    }
+
+
+
+}
