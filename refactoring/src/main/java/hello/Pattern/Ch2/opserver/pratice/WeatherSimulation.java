@@ -13,6 +13,5 @@ public class WeatherSimulation {
         ForecastDisplay forecastDisplay = new ForecastDisplay(weatherData);
         StatisticsDisplay statisticsDisplay = new StatisticsDisplay(weatherData);
 
-        weatherData.set
     }
 }
