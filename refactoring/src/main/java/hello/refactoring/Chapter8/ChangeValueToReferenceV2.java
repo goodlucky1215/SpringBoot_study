@@ -57,7 +57,7 @@ public class ChangeValueToReferenceV2 {
 
         static void loadCustomer(){
             new Customer("car center").store();
-            new Customer("gas factory").store();
+            new Customer("gas sdfsdf").store();
             new Customer("커피 자판기 운영업").store();
         }
 
