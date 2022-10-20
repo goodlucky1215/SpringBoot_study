@@ -10,7 +10,7 @@ public class ChicagoStore extends PizzaStoreFactory{
     @Override
     Pizza createPizza(String type) {
         Pizza pizza = null;
-
+        PizzaIngredientFactory
         if(type.equals("cheese")){
             pizza = new ChicagoCheesePizza();
         }else if(type.equals("clam")){
