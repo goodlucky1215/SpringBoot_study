@@ -1,20 +1,34 @@
 package hello.Pattern.Ch4.factory.pratice.pizzakind;
 
+import hello.Pattern.Ch4.factory.pratice.ingredient.Cheese;
+import hello.Pattern.Ch4.factory.pratice.ingredient.PizzaIngredientFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Pizza {
 
+    PizzaIngredientFactory pizzaIngredientFactory;
+
+    public Pizza(PizzaIngredientFactory pizzaIngredientFactory){
+        this.pizzaIngredientFactory = pizzaIngredientFactory;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     String name;
-    String dough;
-    String sauce;
+    Cheese cheese;
 
     List<String> toppings = new ArrayList<>();
 
-    public void prepare(){
+    public abstract void prepare();
+
+    public void prepare1(){
         System.out.println("준비 중 : "+name);
-        System.out.println("도우 ing : "+dough);
-        System.out.println("소스 ing : "+sauce);
+        System.out.println("도우 ing : "+pizzaIngredientFactory.createDough());
+        System.out.println("소스 ing : "+pizzaIngredientFactory.createSauce());
         System.out.print("토핑 ing : ");
         for(String topping:toppings){
             System.out.print(" "+topping);

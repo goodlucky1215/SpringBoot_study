@@ -9,7 +9,7 @@ public class PizzaTest {
 
     public static void main(String[] args) {
         PizzaStoreFactory chicagoStore = new ChicagoStore();
-        Pizza chpizza = chicagoStore.orderPizza("cheese");
+        Pizza chpizza = chicagoStore.orderPizza("clam");
 
         System.out.println("////////////////////////////////////////");
 

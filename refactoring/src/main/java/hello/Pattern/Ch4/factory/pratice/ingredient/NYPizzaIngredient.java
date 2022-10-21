@@ -13,13 +13,13 @@ public class NYPizzaIngredient implements PizzaIngredientFactory{
 
     @Override
     public Cheese createCheese() {
-        return null;
+        return new CheeseMoaazrella();
     }
 
-    @Override
-    public Veggies[] createVeggies() {
-        return new Veggies[0];
-    }
+    //@Override
+    //public Veggies[] createVeggies() {
+   //     return new Veggies[0];
+    //}
 
     @Override
     public Clams createClam() {
