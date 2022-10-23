@@ -11,7 +11,7 @@ public class ChicagoVeggiePizza extends Pizza{
 
     @Override
     public void prepare() {
-
+        super.prepare();
     }
 
 }

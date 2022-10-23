@@ -11,11 +11,8 @@ public class ChicagClamPizza extends Pizza{
 
     @Override
     public void prepare() {
-        cheese = pizzaIngredientFactory.createCheese();
-        System.out.println(cheese.toString());
-        cheese = pizzaIngredientFactory.createCheese();
-        System.out.println(cheese.toString());
+        super.prepare();
+        clams = pizzaIngredientFactory.createClam();
     }
-
 
 }

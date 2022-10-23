@@ -11,7 +11,8 @@ public class NYClamPizza extends Pizza{
 
     @Override
     public void prepare() {
-
+        super.prepare();
+        clams = pizzaIngredientFactory.createClam();
     }
 
 }

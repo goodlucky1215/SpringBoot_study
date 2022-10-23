@@ -10,7 +10,7 @@ public class NYVeggiePizza extends Pizza{
 
     @Override
     public void prepare() {
-
+        super.prepare();
     }
 
 }

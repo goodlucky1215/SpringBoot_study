@@ -3,12 +3,12 @@ package hello.Pattern.Ch4.factory.pratice.ingredient;
 public class ChicagoPizzaIngredient implements PizzaIngredientFactory{
     @Override
     public Dough createDough() {
-        return null;
+        return new DoughThickShin();
     }
 
     @Override
     public Sauce createSauce() {
-        return null;
+        return new SauceRench();
     }
 
     @Override
@@ -21,6 +21,6 @@ public class ChicagoPizzaIngredient implements PizzaIngredientFactory{
 
     @Override
     public Clams createClam() {
-        return null;
+        return new ClamFish();
     }
 }
