@@ -9,5 +9,6 @@ package hello.Pattern.Ch6.command.Remocon;
 public interface Command {
 
     public void execute();
+    public void undo();
 
 }
